@@ -1,7 +1,7 @@
 let client = require('socket.io').listen(4300).sockets
 console.log('I am alive!!');
 
-let = idWithUrl = {};
+// let = idWithUrl = {};
 
 let usedAvatars = [];
 
