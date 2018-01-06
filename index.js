@@ -4,7 +4,7 @@ let avatars = [
   "https://upload.wikimedia.org/wikipedia/commons/b/b4/Michael_Rooker_by_Gage_Skidmore_2.jpg",  'https://upload.wikimedia.org/wikipedia/commons/f/f4/%D0%93%D1%80%D1%83%D1%82.jpg','https://c1.staticflickr.com/9/8676/16083298845_0821e51fd9_z.jpg', 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Guardians_of_the_Galaxy_-_Rocket_%282%29.jpg'
 ];
 
-let client = require('socket.io').listen(4300).sockets
+let client = require('socket.io').listen(process.env.PORT).sockets
 let idWithUrl = {};
 let usedAvatars = [];
 
