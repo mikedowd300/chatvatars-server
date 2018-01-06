@@ -1,5 +1,7 @@
-let client = require('socket.io').listen(4200).sockets
+let client = require('socket.io').listen(4300).sockets
 console.log('I am alive!!');
+
+let = idWithUrl = {};
 
 let usedAvatars = [];
 
@@ -10,26 +12,21 @@ let avatars = [
 ];
 
 client.on('connection', socket => {
-  let obj = {
-    greeting: 'Howdy!!',
-    avatars,
-    usedAvatars
-  };
 
-  socket.emit('say-hi', obj);
+  socket.emit('display-avatars', { avatars, usedAvatars });
 
   socket.on('chatter-added', data => {
+    idWithUrl[socket.id] = data;
     usedAvatars.push(data);
     avatars.splice(avatars.indexOf(data), 1);
-    let obj = {
-      avatars,
-      usedAvatars
-    }
-    client.emit('redisplay-avatar-list', obj);
+    client.emit('display-avatars', { avatars, usedAvatars });
   });
 
   socket.on('disconnect', data => {
-    console.log('goodbye: ', socket.id);
+    let url = idWithUrl[socket.id];
+    avatars.push(url);
+    usedAvatars.splice(usedAvatars.indexOf(url), 1);
+    client.emit('display-avatars', { avatars, usedAvatars });
   });
 
 });
