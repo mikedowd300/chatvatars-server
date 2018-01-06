@@ -1,7 +1,7 @@
 let client = require('socket.io').listen(4300).sockets
 console.log('I am alive!!');
 
-// let = idWithUrl = {};
+let idWithUrl = {};
 
 let usedAvatars = [];
 
@@ -20,6 +20,10 @@ client.on('connection', socket => {
     usedAvatars.push(data);
     avatars.splice(avatars.indexOf(data), 1);
     client.emit('display-avatars', { avatars, usedAvatars });
+  });
+
+  socket.on('incoming-message', data => {
+    client.emit('new-message', data);
   });
 
   socket.on('disconnect', data => {
